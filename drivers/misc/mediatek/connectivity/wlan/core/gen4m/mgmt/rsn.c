@@ -1250,10 +1250,6 @@ u_int8_t rsnPerformPolicySelection(
 			DBGLOG(RSN, TRACE,
 			       "[MFP] Skip RSN IE, No MFP Required Capability.\n");
 			return FALSE;
-		} else if (!(prBssRsnInfo->u2RsnCap & ELEM_WPA_CAP_MFPC)) {
-			DBGLOG(RSN, WARN,
-			       "[MFP] Skip RSN IE, No MFP Required\n");
-			return FALSE;
 		}
 		aisGetAisSpecBssInfo(prAdapter, ucBssIndex)
 			->fgMgmtProtection = TRUE;
@@ -1446,24 +1442,16 @@ uint32_t _addWPAIE_impl(IN struct ADAPTER *prAdapter,
 	ucBssIndex = prMsduInfo->ucBssIndex;
 	prBssInfo = GET_BSS_INFO_BY_INDEX(prAdapter, ucBssIndex);
 
-	if (!prAdapter->rWifiVar.fgReuseRSNIE)
-		return FALSE;
-
 	if (!prBssInfo)
 		return FALSE;
 
 	/* AP + GO */
 	if (!IS_BSS_APGO(prBssInfo))
 		return FALSE;
-
 	/* AP only */
 	if (!p2pFuncIsAPMode(
 		prAdapter->rWifiVar.
 		prP2PConnSettings[prBssInfo->u4PrivateData]))
-		return FALSE;
-
-	/* PMF only */
-	if (!prBssInfo->rApPmfCfg.fgMfpc)
 		return FALSE;
 
 	prP2pSpecBssInfo =
@@ -1800,6 +1788,18 @@ void rsnGenerateRSNIE(IN struct ADAPTER *prAdapter,
 
 			RSN_IE(pucBuffer)->ucLength +=
 				(prP2pSpecBssInfo->u4KeyMgtSuiteCount - 1) * 4;
+		} else if (prBssInfo->eNetworkType == NETWORK_TYPE_P2P) {
+			WLAN_SET_FIELD_16(cp, 2);	/* AKM suite count */
+			cp += 2;
+			/* AKM suite */
+			WLAN_SET_FIELD_32(cp, GET_BSS_INFO_BY_INDEX(prAdapter,
+			    ucBssIndex)->u4RsnSelectedAKMSuite);
+			cp += 4;
+			/* jesus hack: add PSK SHA256 that networkmanager insists on using.
+			   we really should just use the IE provided by wpa_supplicant... */
+			RSN_IE(pucBuffer)->ucLength += 4;
+			WLAN_SET_FIELD_32(cp, RSN_AKM_SUITE_PSK_SHA256);
+			cp += 4;
 		} else {
 			WLAN_SET_FIELD_16(cp, 1);	/* AKM suite count */
 			cp += 2;
@@ -2085,6 +2085,8 @@ void rsnParserCheckForRSNCCMPPSK(struct ADAPTER *prAdapter,
 			&& (rRsnIe.au4AuthKeyMgtSuite[0] != RSN_AKM_SUITE_SAE)
 #endif
 			&& (rRsnIe.au4AuthKeyMgtSuite[0] != RSN_AKM_SUITE_OWE)
+			// jesus hack: allow "invalid AKMP" if peer did fallback to PSK_SHA256
+			&& (rRsnIe.au4AuthKeyMgtSuite[0] != RSN_AKM_SUITE_PSK_SHA256)
 			)) {
 			DBGLOG(RSN, WARN, "RSN with invalid AKMP\n");
 			*pu2StatusCode = STATUS_CODE_INVALID_AKMP;
