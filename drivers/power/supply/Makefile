@@ -28,12 +28,6 @@ subdir-ccflags-y += -I$(srctree)/drivers/misc/mediatek/typec/tcpc/inc
 subdir-ccflags-y += -I$(srctree)/drivers/misc/mediatek/power_throttling
 
 obj-$(CONFIG_CHARGER_CROS_USBPD)	+= cros_usbpd-charger.o
-obj-$(CONFIG_CHARGER_BQ25601) += bq25601.o
-obj-$(CONFIG_CHARGER_RT9458) += rt9458.o
-obj-$(CONFIG_CHARGER_RT9465) += rt9465.o
-obj-$(CONFIG_CHARGER_RT9466) += rt9466.o
-obj-$(CONFIG_CHARGER_RT9467) += rt9467.o
-obj-$(CONFIG_CHARGER_RT9471) += rt9471.o
 obj-$(CONFIG_CHARGER_MT6360) += mt6360_charger.o
 obj-$(CONFIG_BATTERY_MT6357) += mt6357_battery.o
 mt6357_battery-objs := mtk_battery_coulomb_service.o mtk_battery.o mtk_battery_algo.o  mt6357-gauge.o mtk_battery_daemon.o
@@ -97,8 +91,6 @@ obj-$(CONFIG_BATTERY_MAX17040)	+= max17040_battery.o
 obj-$(CONFIG_BATTERY_MAX17042)	+= max17042_battery.o
 obj-$(CONFIG_BATTERY_MAX1721X)	+= max1721x_battery.o
 obj-$(CONFIG_BATTERY_Z2)	+= z2_battery.o
-obj-$(CONFIG_BATTERY_RT5033)	+= rt5033_battery.o
-obj-$(CONFIG_CHARGER_RT9455)	+= rt9455_charger.o
 obj-$(CONFIG_BATTERY_S3C_ADC)	+= s3c_adc_battery.o
 obj-$(CONFIG_BATTERY_TWL4030_MADC)	+= twl4030_madc_battery.o
 obj-$(CONFIG_CHARGER_88PM860X)	+= 88pm860x_charger.o
@@ -133,12 +125,6 @@ obj-$(CONFIG_CHARGER_TPS65217)	+= tps65217_charger.o
 obj-$(CONFIG_AXP288_FUEL_GAUGE) += axp288_fuel_gauge.o
 obj-$(CONFIG_AXP288_CHARGER)	+= axp288_charger.o
 obj-$(CONFIG_CHARGER_CROS_USBPD)	+= cros_usbpd-charger.o
-obj-$(CONFIG_CHARGER_BQ25601) += bq25601.o
-obj-$(CONFIG_CHARGER_RT9458) += rt9458.o
-obj-$(CONFIG_CHARGER_RT9465) += rt9465.o
-obj-$(CONFIG_CHARGER_RT9466) += rt9466.o
-obj-$(CONFIG_CHARGER_RT9467) += rt9467.o
-obj-$(CONFIG_CHARGER_RT9471) += rt9471.o
 obj-$(CONFIG_CHARGER_MT6360) += mt6360_charger.o
 obj-$(CONFIG_BATTERY_MT6357) += mt6357_battery.o
 obj-$(CONFIG_MTK_CW2015_SUPPORT) += cw2015_fuel_gauge_v3.4.o
@@ -163,16 +149,6 @@ endif
 
 obj-$(CONFIG_CHARGER_MT6357) += mt6357-pulse-charger.o
 
-#prize added by chenjiaxi, aw32207 drivers, 20220409-start
-obj-$(CONFIG_CHARGER_AW32207) += aw32207.o
-#prize added by chenjiaxi, aw32207 drivers, 20220409-end
-#prize add by zhaopengge 20211215 start-----	
-obj-$(CONFIG_CHARGER_SGM41512) += sgm41512.o
-obj-$(CONFIG_CHARGER_ETA6953) += eta6953.o
-#prize add by zhaopengge 20211215 end-----	
-# prize add by zhaopengge----20201030---start
-obj-$(CONFIG_HL7005ALL_CHARGER_SUPPORT) += hl7005all.o
-# prize add by zhaopengge----20201030---end
 #//prize added by sunshuai, charge support, 20200507-start
 # prize-add-pengzhipeng-20220515-start
 ifneq ($(CONFIG_MACH_MT6877),y)
