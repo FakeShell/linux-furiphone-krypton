@@ -3617,9 +3617,7 @@ int mtk_dsi_esd_read(struct mtk_ddp_comp *comp, void *handle, uintptr_t slot)
 
 	return 0;
 }
-//prize-add TP esd-pengzhipeng-20220515-start
-extern int gcore_esd_is_fail(void);
-//prize-add TP esd-pengzhipeng-20220515-end
+
 int mtk_dsi_esd_cmp(struct mtk_ddp_comp *comp, void *handle, void *slot)
 {
 	int i, ret = 0;
@@ -3633,18 +3631,6 @@ int mtk_dsi_esd_cmp(struct mtk_ddp_comp *comp, void *handle, void *slot)
 	else /* can't find panel ext information, stop esd read */
 		return 0;
 
-//prize-add TP esd-pengzhipeng-20220515-start
-	if (!strcmp(mtkfb_get_panel_name(), "gc7302,vdo"))
-	{
-
-		if (gcore_esd_is_fail())
-		{
-			pr_debug("[DSI]gcore_esd_is_fail=%d\n",gcore_esd_is_fail());
-			ret = -1;
-			return ret;
-		}
-	}
-//prize-add TP esd-pengzhipeng-20220515-end
 	for (i = 0; i < ESD_CHECK_NUM; i++) {
 		if (dsi->ext->params->lcm_esd_check_table[i].cmd == 0)
 			break;
