@@ -1297,34 +1297,6 @@ config SND_SOC_ZX_AUD96P22
 	select REGMAP_I2C
 
 # Amp
-config SND_SOC_MT6660
-	tristate "Mediatek MT6660 speaker amplifier"
-	depends on I2C
-	select RT_REGMAP
-	select SND_RICHTEK_SPM
-	help
-	  Config of MT6660. It is a Smart power
-	  amplifier which contain speaker protection,
-	  multi-band DRC, equalizer function. It would
-	  be set to yes if device with MT6660 on it.
-
-config SND_SOC_TFA9874
-	tristate "NXP TFA9874 speaker amplifier"
-	depends on I2C
-	help
-	  Config of TFA9874. It is a Smart power
-	  amplifier which contain speaker protection,
-	  multi-band DRC, equalizer function. It would
-	  be set to yes if device with TFA9874 on it.
-
-config SND_SOC_AW87339
-	tristate "AWINIC AW8773 speaker amplifier"
-	help
-	  Config of AWINIC AW87339 speaker amplifier.
-	  It is a speaker amp which connect with MTK
-	  PMIC device which has no speaker protection
-	  function.
-
 config SND_SOC_LM4857
 	tristate
 
@@ -1377,18 +1349,6 @@ config SND_SOC_MT6359_ACCDET
 	  for ASoC codec soc-jack detection mechanism.
 	  Select N if you don't have jack on board.
 
-config SND_SOC_MT6660
-	tristate "Mediatek MT6660 speaker amplifier"
-	depends on I2C
-	select CRC32
-	select CRYPTO_SHA256
-	select CRYPTO_RSA
-	help
-	  MediaTek MT6660 is a smart power amplifier which contain
-	  speaker protection, multi-band DRC, equalizer functions.
-	  Select N if you don't have MT6660 on board.
-	  Select M to build this as module.
-
 config SND_SOC_NAU8540
        tristate "Nuvoton Technology Corporation NAU85L40 CODEC"
        depends on I2C
@@ -1421,133 +1381,16 @@ config SND_SOC_TPA6130A2
 	tristate "Texas Instruments TPA6130A2 headphone amplifier"
 	depends on I2C
 
-config SND_SOC_RT5509
-	tristate "Richtek RT5509 Smart AMP"
-	depends on I2C
-	select RT_REGMAP
-	help
-	  Config of RT5509. It is a Smart power
-	  amplifier which contain speaker protection,
-	  multi-band DRC, equalizer function. It would
-	  be set to yes if device with RT5509 on it.
-
-config SND_RICHTEK_SPM
-	bool "Richtek SPM Class"
-	help
-	  Say Y here to enable Richtek SPM Class support.
-	  This is a IPC Command for audio dsp and amp driver.
-	  Enable it, driver can get hifi3 data.
-	  Disable it, driver cannot get hifi3 data.
-
-config SND_SOC_RT5512
-	tristate "Mediatek RT5512 speaker amplifier"
-	depends on I2C
-	select SND_RICHTEK_SPM
-	help
-	  Config of RT5512. It is a Smart power
-	  amplifier which contain speaker protection,
-	  multi-band DRC, equalizer function. It would
-	  be set to yes if device with RT5512 on it.
-
-config SND_SOC_SMARTPAINFO
-	tristate "smartpa info"
-	depends on I2C
-	help
-	  Config of SMARTPAINFO. This config can be
-	  used to enable SND_SOC_SMARTPAINFO.
-	  It is a smartpa.It would be set to yes
-	  if device with smartpa on it, enable it.
-	  If unsure, say N.
-
-source "sound/soc/codecs/cs35l43/Kconfig"
-
-#prize-add smartpa aw883xx-pengzhipeng-20211206-start
 config SND_SMARTPA_AW883XX
     tristate "SoC Audio for awinic aw883xx series"
     depends on I2C
     help
       This option enables support for aw883xx series Smart PA.
-#prize-add smartpa aw883xx-pengzhipeng-20211206-end
 
-# prize add by anhengxuan, add HAC, 20220406 begin
 config MTK_HAC_SUPPORT
         tristate "HAC for awinic aw881xx series"
         default n
         help
           This option enables support for HAC.
-# prize add by anhengxuan, add HAC, 20220406 end
 
-#add by prize anhengxuan for AW87XXX 20220402 start
-config SND_SOC_AW87XXX
-        tristate "SoC Audio for awinic AW87XXX series"
-        depends on I2C
-        default n
-        help
-          This option enables support for AW87XXX series Smart PA.
-#add by prize anhengxuan for AW87XXX 20220402 end		
-
-#prize added by chenjiaxi, fs1599, 20221103-start
-config SND_SOC_FS1599
-        tristate "SoC Audio for awinic FS1599 series"
-        depends on I2C
-        default n
-        help
-          This option enables support for FS1599 series Smart PA.
-#prize added by chenjiaxi, fs1599, 20221103-end
-
-#prize added by chenjiaxi, sipa, 20221109-start
-config SND_SOC_SIPA
-        tristate "SoC Audio for awinic SIPA series"
-        depends on I2C
-        default n
-        help
-          This option enables support for SIPA series Smart PA.
-#prize added by chenjiaxi, sipa, 20221109-end
-
-#prize add by lipengpeng 20210330 start
-config SND_SMARTPA_AW881XX_V2
-        tristate "SoC Audio for awinic aw881a series"
-        depends on I2C
-        default n
-        help
-          This option enables support for aw881xx series Smart PA.
-
-#prize add by wuhui 20210623 start
-config SND_SMARTPA_AW881XX_V1_3_0
-        tristate "SoC Audio for awinic aw881xx series"
-        depends on I2C
-        default n
-        help
-          This option enables support for aw881xx series Smart PA.
-	   
-#prize add by wuhui 20210623 end
-
-config SND_SOC_AW881XX_STEREO
-        tristate "SoC Audio for awinic aw881xx series"
-        default n
-        help
-          This option enables support for aw881xx series Smart PA.
-	  
-config SND_SMARTPA_AW88194A
-        tristate "SoC Audio for awinic aw881xx series"
-        depends on I2C
-        default n
-        help
-          This option enables support for aw881xx series Smart PA.
-	  
-config SND_SMARTPA_AW88194A_NEW
-        tristate "SoC Audio for awinic aw881a series"
-        depends on I2C
-        default n
-        help
-          This option enables support for aw881xx series Smart PA.
-
-config SND_SOC_AW8898
-        tristate "SoC Audio for awinic aw8898 series"
-        depends on I2C
-        default n
-        help
-          This option enables support for aw8898 series Smart PA.
-	  	  	  	  	   
-#prize add by lipengpeng 20210330 end
 endmenu

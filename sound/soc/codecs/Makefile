@@ -1,12 +1,10 @@
 # SPDX-License-Identifier: GPL-2.0
 
-#prize added by hanwei, headset support, 20210414-start
 MTK_PLATFORM := $(subst ",,$(CONFIG_MTK_PLATFORM))
 subdir-ccflags-y += -Werror -I$(srctree)/drivers/misc/mediatek/include/mt-plat/$(MTK_PLATFORM)/include
 subdir-ccflags-y += -Werror -I$(srctree)/drivers/misc/mediatek/typec/tcpc/inc
 subdir-ccflags-y += -Werror -I$(srctree)/sound/soc/codecs
 subdir-ccflags-y += -Werror -I$(srctree)/drivers/misc/mediatek/pmic/mt6370/inc
-#prize added by hanwei, headset support, 20210414-end
 
 ifeq ($(CONFIG_SND_SOC_MT6359),y)
   MTK_PLATFORM := $(subst ",,$(CONFIG_MTK_PLATFORM))
@@ -91,7 +89,6 @@ snd-soc-da9055-objs := da9055.o
 snd-soc-dmic-objs := dmic.o
 snd-soc-es7134-objs := es7134.o
 snd-soc-es7241-objs := es7241.o
-snd-soc-es7243e-objs := es7243e.o
 snd-soc-es8316-objs := es8316.o
 snd-soc-es8328-objs := es8328.o
 snd-soc-es8328-i2c-objs := es8328-i2c.o
@@ -129,7 +126,6 @@ snd-soc-mt6359-objs := mt6359.o
 snd-soc-mt6357-accdet-objs := mt6357-accdet.o
 snd-soc-mt6359-accdet-objs := mt6359-accdet.o
 snd-soc-mt6366-objs := mt6358.o
-snd-soc-mt6660-objs := mt6660.o
 snd-soc-nau8540-objs := nau8540.o
 snd-soc-nau8810-objs := nau8810.o
 snd-soc-nau8824-objs := nau8824.o
@@ -156,7 +152,6 @@ snd-soc-rl6231-objs := rl6231.o
 snd-soc-rl6347a-objs := rl6347a.o
 snd-soc-rt1305-objs := rt1305.o
 snd-soc-rt274-objs := rt274.o
-snd-soc-rt286-objs := rt286.o
 snd-soc-rt298-objs := rt298.o
 snd-soc-rt5514-objs := rt5514.o
 snd-soc-rt5514-spi-objs := rt5514-spi.o
@@ -277,8 +272,6 @@ snd-soc-wm9712-objs := wm9712.o
 snd-soc-wm9713-objs := wm9713.o
 snd-soc-wm-hubs-objs := wm_hubs.o
 snd-soc-zx-aud96p22-objs := zx_aud96p22.o
-snd-soc-rt5509-objs := rt5509.o rt5509-regmap.o rt5509-calib.o
-snd-soc-rt5512-objs := rt5512.o
 
 # Amp
 snd-soc-max9877-objs := max9877.o
@@ -286,9 +279,7 @@ snd-soc-max98504-objs := max98504.o
 snd-soc-simple-amplifier-objs := simple-amplifier.o
 snd-soc-tpa6130a2-objs := tpa6130a2.o
 snd-soc-tas2552-objs := tas2552.o
-snd-soc-smartpa-info-objs := smartpa-info.o
 
-obj-$(CONFIG_SND_RICHTEK_SPM)   += richtek_spm_cls.o
 obj-$(CONFIG_SND_SOC_88PM860X)	+= snd-soc-88pm860x.o
 obj-$(CONFIG_SND_SOC_AB8500_CODEC)	+= snd-soc-ab8500-codec.o
 obj-$(CONFIG_SND_SOC_AC97_CODEC)	+= snd-soc-ac97.o
@@ -364,12 +355,10 @@ obj-$(CONFIG_SND_SOC_DA9055)	+= snd-soc-da9055.o
 obj-$(CONFIG_SND_SOC_DMIC)	+= snd-soc-dmic.o
 obj-$(CONFIG_SND_SOC_ES7134)	+= snd-soc-es7134.o
 obj-$(CONFIG_SND_SOC_ES7241)	+= snd-soc-es7241.o
-obj-$(CONFIG_SND_SOC_ES7243E)	+= snd-soc-es7243e.o
 obj-$(CONFIG_SND_SOC_ES8316)    += snd-soc-es8316.o
 obj-$(CONFIG_SND_SOC_ES8328)	+= snd-soc-es8328.o
 obj-$(CONFIG_SND_SOC_ES8328_I2C)+= snd-soc-es8328-i2c.o
 obj-$(CONFIG_SND_SOC_ES8328_SPI)+= snd-soc-es8328-spi.o
-obj-$(CONFIG_SND_SOC_FS16XX)    += fs18xx/
 obj-$(CONFIG_SND_SOC_GTM601)    += snd-soc-gtm601.o
 obj-$(CONFIG_SND_SOC_HDAC_HDMI) += snd-soc-hdac-hdmi.o
 obj-$(CONFIG_SND_SOC_ICS43432)	+= snd-soc-ics43432.o
@@ -403,7 +392,6 @@ obj-$(CONFIG_SND_SOC_MT6359)	+= snd-soc-mt6359.o
 obj-$(CONFIG_SND_SOC_MT6357_ACCDET) += mt6357-accdet.o
 obj-$(CONFIG_SND_SOC_MT6359_ACCDET) += mt6359-accdet.o
 obj-$(CONFIG_SND_SOC_MT6366)	+= snd-soc-mt6366.o
-obj-$(CONFIG_SND_SOC_MT6660)	+= snd-soc-mt6660.o
 obj-$(CONFIG_SND_SOC_NAU8540)   += snd-soc-nau8540.o
 obj-$(CONFIG_SND_SOC_NAU8810)   += snd-soc-nau8810.o
 obj-$(CONFIG_SND_SOC_NAU8824)   += snd-soc-nau8824.o
@@ -430,7 +418,6 @@ obj-$(CONFIG_SND_SOC_RL6231)	+= snd-soc-rl6231.o
 obj-$(CONFIG_SND_SOC_RL6347A)	+= snd-soc-rl6347a.o
 obj-$(CONFIG_SND_SOC_RT1305)	+= snd-soc-rt1305.o
 obj-$(CONFIG_SND_SOC_RT274)	+= snd-soc-rt274.o
-obj-$(CONFIG_SND_SOC_RT286)	+= snd-soc-rt286.o
 obj-$(CONFIG_SND_SOC_RT298)	+= snd-soc-rt298.o
 obj-$(CONFIG_SND_SOC_RT5514)	+= snd-soc-rt5514.o
 obj-$(CONFIG_SND_SOC_RT5514_SPI)	+= snd-soc-rt5514-spi.o
@@ -550,50 +537,17 @@ obj-$(CONFIG_SND_SOC_WM9713)	+= snd-soc-wm9713.o
 obj-$(CONFIG_SND_SOC_WM_ADSP)	+= snd-soc-wm-adsp.o
 obj-$(CONFIG_SND_SOC_WM_HUBS)	+= snd-soc-wm-hubs.o
 obj-$(CONFIG_SND_SOC_ZX_AUD96P22) += snd-soc-zx-aud96p22.o
-obj-$(CONFIG_SND_SOC_TFA9874)	+= tfa98xx/
-obj-$(CONFIG_SND_SOC_CS35L43)	+= cs35l43/
 
 # Amp
 obj-$(CONFIG_SND_SOC_MAX9877)	+= snd-soc-max9877.o
 obj-$(CONFIG_SND_SOC_MAX98504)	+= snd-soc-max98504.o
 obj-$(CONFIG_SND_SOC_SIMPLE_AMPLIFIER)	+= snd-soc-simple-amplifier.o
 obj-$(CONFIG_SND_SOC_TPA6130A2)	+= snd-soc-tpa6130a2.o
-obj-$(CONFIG_SND_SOC_RT5509)	+= snd-soc-rt5509.o
-obj-$(CONFIG_SND_SOC_RT5512)	+= snd-soc-rt5512.o
-obj-$(CONFIG_SND_SOC_MT6660)	+= snd-soc-mt6660.o
-obj-$(CONFIG_SND_SOC_SMARTPAINFO)	+= snd-soc-smartpa-info.o
-obj-$(CONFIG_SND_SOC_AW87339)	+= aw87339/
 
 ifneq (, $(filter y,$(CONFIG_SND_SOC_MT6358) $(CONFIG_SND_SOC_MT6366)))
   MTK_PLATFORM := $(subst ",,$(CONFIG_MTK_PLATFORM))
   subdir-ccflags-y += -Werror -I$(srctree)/drivers/misc/mediatek/include/mt-plat/$(MTK_PLATFORM)/include
   subdir-ccflags-y += -Werror -I$(srctree)/drivers/misc/mediatek/accdet/mt6358
 endif
-#prize-add smartpa aw883xx-pengzhipeng-20211206-start
+
 obj-$(CONFIG_SND_SMARTPA_AW883XX)    += aw883xx/
-#prize-add smartpa aw883xx-pengzhipeng-20211206-end
-#prize add by anhengxuan for HAC gpio driver 20220406 start
-obj-$(CONFIG_MTK_HAC_SUPPORT)	+= hac_gpio.o
-#prize add by anhengxuan for HAC gpio driver 20220406 end
-#prize-add smartpa aw87xxx-anhengxuan-20220402-start
-obj-$(CONFIG_SND_SOC_AW87XXX)	+= aw87xxx/
-#prize-add smartpa aw87xxx-anhengxuan-20220402-end
-
-#prize add by lipengpeng 20210330 start 
-obj-$(CONFIG_SND_SMARTPA_AW881XX_V2)    += aw881xx_v2/
-obj-$(CONFIG_SND_SMARTPA_AW881XX)    += aw881xx/
-obj-$(CONFIG_SND_SOC_AW8898)    += aw8898/
-obj-$(CONFIG_SND_SMARTPA_AW88194A_NEW)    += aw88194a/
-#prize add by lipengpeng 20210330 end 
-
-# prize add by wuhui aw881xx, 20210623 start
-obj-$(CONFIG_SND_SMARTPA_AW881XX_V1_3_0)    += aw881xx_v1_3_0/
-# prize add by wuhui aw881xx, 20210623 end
-
-#prize added by chenjiaxi, fs1599, 20221103-start
-obj-$(CONFIG_SND_SOC_FS1599)	+= fs1599/
-#prize added by chenjiaxi, fs1599, 20221103-end
-
-#prize added by chenjiaxi, sipa, 20221109-start
-obj-$(CONFIG_SND_SOC_SIPA)	+= sipa/
-#prize added by chenjiaxi, sipa, 20221109-end
