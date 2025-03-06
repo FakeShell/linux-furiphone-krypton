@@ -1,1 +1,0 @@
-obj-$(CONFIG_TOUCHSCREEN_FOCALTECH_TOUCH_V33) += focaltech_upgrade_ft8720m.o

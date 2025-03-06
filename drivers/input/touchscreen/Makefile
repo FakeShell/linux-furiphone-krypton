@@ -56,24 +56,6 @@ obj-$(CONFIG_TOUCHSCREEN_MX25)		+= fsl-imx25-tcq.o
 obj-$(CONFIG_TOUCHSCREEN_MC13783)	+= mc13783_ts.o
 obj-$(CONFIG_TOUCHSCREEN_MCS5000)	+= mcs5000_ts.o
 obj-$(CONFIG_TOUCHSCREEN_MELFAS_MIP4)	+= melfas_mip4.o
-ifeq ($(CONFIG_MACH_MT6739),y)
-obj-$(CONFIG_TOUCHSCREEN_MTK)		+= mediatek/
-else
-obj-$(CONFIG_TOUCHSCREEN_MTK_GT1151)	+= GT1151/
-endif
-ifeq ($(CONFIG_TOUCHSCREEN_MTK_GT9XX_LM),y)
-obj-$(CONFIG_TOUCHSCREEN_MTK)		+= mediatek/
-endif
-ifeq ($(CONFIG_TOUCHSCREEN_GOODIX_BRL),y)
-obj-$(CONFIG_TOUCHSCREEN_MTK)		+= mediatek/
-endif
-ifeq ($(CONFIG_TOUCHSCREEN_HIMAX_IC_HX83102),y)
-obj-$(CONFIG_TOUCHSCREEN_MTK)		+= mediatek/
-endif
-ifeq ($(CONFIG_TOUCHSCREEN_MTK_GT5688),y)
-obj-$(CONFIG_TOUCHSCREEN_MTK)		+= mediatek/
-endif
-obj-$(CONFIG_TOUCHSCREEN_MTK_NT36572_COMMON)   +=  nt36572_common/
 obj-$(CONFIG_TOUCHSCREEN_MIGOR)		+= migor_ts.o
 obj-$(CONFIG_TOUCHSCREEN_MMS114)	+= mms114.o
 obj-$(CONFIG_TOUCHSCREEN_MTOUCH)	+= mtouch.o
@@ -127,41 +109,8 @@ obj-$(CONFIG_TOUCHSCREEN_ZET6223)	+= zet6223.o
 obj-$(CONFIG_TOUCHSCREEN_ZFORCE)	+= zforce_ts.o
 obj-$(CONFIG_TOUCHSCREEN_COLIBRI_VF50)	+= colibri-vf50-ts.o
 obj-$(CONFIG_TOUCHSCREEN_ROHM_BU21023)	+= rohm_bu21023.o
-obj-$(CONFIG_TOUCHSCREEN_MTK_FOCALTECH_HD)	+= focaltech_hd_touch/
-obj-$(CONFIG_TOUCHSCREEN_MTK_FOCALTECH_FHD)	+= focaltech_fhd_touch/
-obj-$(CONFIG_TOUCHSCREEN_MTK_SYNAPTICS_I2C_RMI4)	+=  synaptics_i2c_rmi4/
 
-#prize add by zhaopengge 20211222 ----start
-obj-$(CONFIG_TOUCHSCREEN_FTS)	+=  focaltech_touch_spi/
-obj-$(CONFIG_TOUCHSCREEN_FTS_8006AB)	+=  focaltech_8006s_ab_touch_spi/
-#prize add by zhaopengge 20211222 ----end
-#prize add by huangjiwu 20211222 ----start
 obj-$(CONFIG_TOUCHSCREEN_MTK)		+= mediatek/
-#prize add by huangjiwu 20211222 ----end
-#prize-add-songhezhu-20191231-start
-obj-$(CONFIG_TOUCHSCREEN_CHIPONE_SPI) += chipone_tddi_spi/
-#prize-add-songhezhu-20191231-end
-#prize add by zhaopengge 20210129--------start
-obj-$(CONFIG_TOUCHSCREEN_GALAXYCORE_SPI) += galaxycore/
-#prize add by zhaopengge 20210129--------end
-#prize add by anhengxuan 20220406 tp start
-obj-$(CONFIG_TOUCHSCREEN_OMNIVISION_TCM) += omnivision_tcm/
-#prize add by anhengxuan 20220406 tp end
-obj-$(CONFIG_TOUCHSCREEN_CHSC5XXX) += chsc5xxx/
-
-#prize add by lipengpeng 20220418 start 
-obj-$(CONFIG_TOUCHSCREEN_MTK_ILITEK)    +=  ILITEK_V2/
-obj-$(CONFIG_TOUCHSCREEN_MTK_HX83112A)    +=  hxchipset_hx83112/
-#prize add by lipengpeng 20220418 end
-
-#prize add by chenfeiwen 20220919 ---start 
-obj-$(CONFIG_TOUCHSCREEN_MTK_ILI9882N_SPI)	+= ili9882_spi/
-obj-$(CONFIG_TOUCHSCREEN_NT36xxx_HOSTDL_SPI) +=  NVT_Touch_HostDL/
-#prize add by chenfeiwen 20220919 ---end 
-
-#prize-add-hxchipset spi-pzp-20210713-start
-obj-$(CONFIG_TOUCHSCREEN_HIMAX_IC_HX83112_SPI) += hxchipset_spi/
-#prize-add-hxchipset spi-pzp-20210713-end
 
 TOUCH_LISTS := $(subst ",,$(CONFIG_TOUCHSCREEN_MTK_TOUCH))
 obj-y += $(foreach TOUCH,$(TOUCH_LISTS),$(TOUCH)/)
