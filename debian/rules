@@ -4,3 +4,32 @@ include /usr/share/linux-packaging-snippets/kernel-snippet.mk
 
 %:
 	dh $@
+
+override_dh_install:
+	dh_install
+	# Source the configuration file
+	. debian/flash-bootimage.conf && \
+	path="debian/linux-image-$$VERSION/lib/modules/$$VERSION/kernel/drivers/misc/mediatek/connectivity" && \
+	source_module="debian/linux-image-$$VERSION/lib/modules/$$VERSION/kernel/fs/fuse/cuse.ko" && \
+	modules_order="debian/linux-image-$$VERSION/lib/modules/$$VERSION/modules.order" && \
+	mkdir -p "$$path/bt/mt66xx/btif" && \
+	mkdir -p "$$path/connfem" && \
+	mkdir -p "$$path/conninfra" && \
+	mkdir -p "$$path/fmradio" && \
+	mkdir -p "$$path/gps" && \
+	mkdir -p "$$path/wlan/adaptor" && \
+	mkdir -p "$$path/wlan/core/gen4m" && \
+	cp "$$source_module" "$$path/bt/mt66xx/btif/bt_drv_6877.ko" && \
+	cp "$$source_module" "$$path/connfem/connfem.ko" && \
+	cp "$$source_module" "$$path/conninfra/conninfra.ko" && \
+	cp "$$source_module" "$$path/fmradio/fmradio_drv_connac2x.ko" && \
+	cp "$$source_module" "$$path/gps/gps_drv.ko" && \
+	cp "$$source_module" "$$path/wlan/adaptor/wmt_chrdev_wifi.ko" && \
+	cp "$$source_module" "$$path/wlan/core/gen4m/wlan_drv_gen4m.ko" && \
+	echo "kernel/drivers/misc/mediatek/connectivity/conninfra/conninfra.ko" >> "$$modules_order" && \
+	echo "kernel/drivers/misc/mediatek/connectivity/wlan/adaptor/wmt_chrdev_wifi.ko" >> "$$modules_order" && \
+	echo "kernel/drivers/misc/mediatek/connectivity/wlan/core/gen4m/wlan_drv_gen4m.ko" >> "$$modules_order" && \
+	echo "kernel/drivers/misc/mediatek/connectivity/bt/mt66xx/btif/bt_drv_6877.ko" >> "$$modules_order" && \
+	echo "kernel/drivers/misc/mediatek/connectivity/gps/gps_drv.ko" >> "$$modules_order" && \
+	echo "kernel/drivers/misc/mediatek/connectivity/fmradio/fmradio_drv_connac2x.ko" >> "$$modules_order" && \
+	echo "kernel/drivers/misc/mediatek/connectivity/connfem/connfem.ko" >> "$$modules_order"
