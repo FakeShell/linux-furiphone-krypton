@@ -344,7 +344,7 @@ static int wl2868c_match_id(struct device *dev)
  */
 static int wl2868c_init_dev(struct device *dev)
 {
-    int ret = 0, i = 0;
+    int ret = 0;
     u32 inits[32];
     ret = of_property_read_u32(dev->of_node, "init_num",
         (u32 *) &(wl2868c_data.init_num));
