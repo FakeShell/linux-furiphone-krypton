@@ -5,6 +5,7 @@ Maintainer: Bardia Moshiri <fakeshell@bardia.tech>
 Uploaders: Bardia Moshiri <fakeshell@bardia.tech>
 XS-FuriOS-Host-Arch: arm64
 XS-FuriOS-Build-On: amd64
+XS-FuriOS-Force-Staging: yes
 Build-Depends: build-essential,
                dpkg-dev,
                findutils,
