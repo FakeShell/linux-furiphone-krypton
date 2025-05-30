@@ -963,8 +963,6 @@ static void ilitek_tddi_touch_customer_data_parsing(u8 *buf)
 
 void ili_touch_press(u16 x, u16 y, u16 pressure, u16 id)
 {
-	ILI_DBG("Touch Press: id = %d, x = %d, y = %d, p = %d\n", id, x, y, pressure);
-
 	if (MT_B_TYPE) {
 		input_mt_slot(ilits->input, id);
 		input_mt_report_slot_state(ilits->input, MT_TOOL_FINGER, true);
@@ -1082,7 +1080,6 @@ void ili_report_ap_mode(u8 *buf, int len)
 			touch_info[ilits->finger].pressure = 1;
 		}
 
-		ILI_DBG("original x = %d, y = %d\n", xop, yop);
 		ilits->finger++;
 		if (MT_B_TYPE)
 			ilits->curt_touch[i] = 1;
@@ -1091,7 +1088,6 @@ void ili_report_ap_mode(u8 *buf, int len)
 #ifdef ROI
 	ili_read_knuckle_roi_data();
 #endif
-	ILI_DBG("figner number = %d, LastTouch = %d\n", ilits->finger, ilits->last_touch);
 
 	if (ilits->finger) {
 		if (MT_B_TYPE) {

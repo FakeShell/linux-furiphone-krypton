@@ -869,7 +869,6 @@ int ili_report_handler(void)
 	}
 
 	rlen = ilits->tp_data_len;
-	ILI_DBG("Packget length = %d\n", rlen);
 
 	if (!rlen || rlen > TR_BUF_SIZE) {
 		ILI_ERR("Length of packet is invaild\n");
@@ -923,7 +922,6 @@ int ili_report_handler(void)
 	pack_checksum = ilits->tr_buf[rlen-1];
 	trdata = ilits->tr_buf;
 	pid = trdata[0];
-	ILI_DBG("Packet ID = %x\n", pid);
 
 	if (checksum != pack_checksum && pid != P5_X_I2CUART_PACKET_ID) {
 		debug_en = tmp;
