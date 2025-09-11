@@ -966,6 +966,27 @@ set_rcvbuf:
 		sock_valbool_flag(sk, SOCK_WIFI_STATUS, valbool);
 		break;
 
+	case SO_BINDTOIFINDEX:
+		ret = -ENOPROTOOPT;
+#ifdef CONFIG_NETDEVICES
+		if (val < 0 || val > INT_MAX) {
+			ret = -EINVAL;
+			break;
+		}
+		if (sk->sk_bound_dev_if && !ns_capable(sock_net(sk)->user_ns, CAP_NET_RAW)) {
+			ret = -EPERM;
+			break;
+		}
+		if (val && !dev_get_by_index(sock_net(sk), val)) {
+			ret = -ENODEV;
+			break;
+		}
+		sk->sk_bound_dev_if = val;
+		if (sk->sk_prot->rehash)
+			sk->sk_prot->rehash(sk);
+		ret = 0;
+#endif
+		break;
 	case SO_PEEK_OFF:
 		if (sock->ops->set_peek_off)
 			ret = sock->ops->set_peek_off(sk, val);
@@ -1314,6 +1335,10 @@ int sock_getsockopt(struct socket *sock, int level, int optname,
 
 	case SO_WIFI_STATUS:
 		v.val = sock_flag(sk, SOCK_WIFI_STATUS);
+		break;
+
+	case SO_BINDTOIFINDEX:
+		v.val = sk->sk_bound_dev_if;
 		break;
 
 	case SO_PEEK_OFF:
