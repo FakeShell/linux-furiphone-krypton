@@ -382,6 +382,12 @@ int rw_verify_area(int read_write, struct file *file, const loff_t *ppos, size_t
 			return retval;
 	}
 
+	if (unlikely(inode->i_flctx && mandatory_lock(inode))) {
+		retval = locks_mandatory_area(inode, file, pos, pos + count - 1,
+				read_write == READ ? F_RDLCK : F_WRLCK);
+		if (retval < 0)
+			return retval;
+	}
 	return security_file_permission(file,
 				read_write == READ ? MAY_READ : MAY_WRITE);
 }
