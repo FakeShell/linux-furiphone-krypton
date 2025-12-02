@@ -1898,7 +1898,7 @@ int do_clone_file_range(struct file *file_in, loff_t pos_in,
 	 * the same mount. Practically, they only need to be on the same file
 	 * system.
 	 */
-	if (file_inode(inode_in)->i_sb != file_inode(inode_out)->i_sb)
+	if (file_inode(file_in)->i_sb != file_inode(file_out)->i_sb)
 		return -EXDEV;
 
 	ret = generic_file_rw_checks(file_in, file_out);
